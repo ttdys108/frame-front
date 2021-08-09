@@ -4,6 +4,9 @@ import Home from '@/views/home/index.vue';
 import Login from '@/views/login/index.vue';
 import MsgBox from '@/views/msgbox/index.vue';
 import { start } from 'qiankun';
+import store from '@/store'
+import DataApi from "@/api/DataApi";
+import {isSucceed} from "@/util/CommonUtils";
 
 Vue.use(VueRouter)
 
@@ -42,8 +45,29 @@ const routes: Array<RouteConfig> = [
 
 const router = new VueRouter({
   mode: 'history',
-  base: window.FRAME_CONFIG.publicPath,
+  base: window.LOCAL_CONFIG.PUBLIC_PATH,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  console.log('menu init', store.state.app.menuInit);
+  // 初始化菜单
+  if(!store.state.app.menuInit) {
+    DataApi.getMenus().then((res) => {
+      if(isSucceed(res)) {
+        return store.dispatch('app/initMenus', res.data);
+      } else {
+        console.error('获取菜单失败', res);
+      }
+    }).then(() => {
+      next();
+    });
+  } else {
+
+
+
+  }
+
 })
 
 export default router

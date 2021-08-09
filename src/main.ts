@@ -1,11 +1,15 @@
 import '@/sysconfig';
 
+import '@/styles/app.css';
+
 import Vue from 'vue'
-import App from '@/App.vue'
-import router from '@/router'
 import store from '@/store'
+import router from '@/router'
 import vuetify from '@/plugins/vuetify';
+import App from '@/App.vue'
+
 import { registerMicroApps, start } from 'qiankun';
+import popMessage from "@/util/popMessage";
 
 Vue.config.productionTip = false
 
@@ -13,6 +17,7 @@ new Vue({
   router,
   store,
   vuetify,
+  popMessage,
   render: h => h(App),
 }).$mount('#app');
 

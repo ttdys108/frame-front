@@ -1,0 +1,8 @@
+.text-right{
+    text-align: right!important;
+}
+.overflow-hidden{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+}
